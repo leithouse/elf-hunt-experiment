@@ -4,6 +4,8 @@ Campaign outputs are written to output/
 
 Collected analyses are written to analysis/
 
+Designed for use with the corpi here: https://github.com/leithouse/elf-corpi
+
 ### Scripts
 
 *collect.js*
