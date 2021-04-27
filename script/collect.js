@@ -9,15 +9,15 @@ const AFL_COLLECT = 'afl-collect',
           READELF = path.join(__dirname,'..','bin','readelf-2.28'),
              ARGS = ['-atcw','-x','1','-p','1','-R','1'];
 
-const {FUZZER,CORPUS,USE_ASAN} = process.env;
-if(!FUZZER || !CORPUS) {
-  console.error('ERROR: Must supply CORPUS and FUZZER in environment');
+const {FUZZER,CORPUS,USE_ASAN,TSTAMP} = process.env;
+if(!FUZZER || !CORPUS || !TSTAMP) {
+  console.error('ERROR: Must supply CORPUS, TSTAMP and FUZZER in environment');
   process.exit(1);
 }
 
 const tstamp = (new Date()).toLocaleString();
 
-const PATH_TAIL = path.join(FUZZER+(USE_ASAN?'-asan':''),CORPUS+'-'+tstamp)
+const PATH_TAIL = path.join(FUZZER+(USE_ASAN?'-asan':''),CORPUS+'-'+TSTAMP)
          OUTPUT = path.resolve(__dirname,'..','output',PATH_TAIL),
        ANALYSIS = path.resolve(__dirname,'..','analysis',PATH_TAIL),
         CRASHES = path.join(ANALYSIS,'crashes'),

@@ -1,6 +1,7 @@
 #!/bin/bash
 RUN_DIR="$( cd "$(dirname "$0")" && pwd )"
 export FUZZER=qsym
+export TSTAMP=$(date +%s)
 if [[ -z "$CORPUS_REPO" ]]; then
   echo Must supply CORPUS_REPO env variable
   exit 1
@@ -10,7 +11,7 @@ if [[ -z "$CORPUS" ]]; then
   exit 2
 fi
 
-TMP=$RUN_DIR/../tmp-$(date +%s)
+TMP=$RUN_DIR/../tmp-$TSTAMP
 mkdir -p $TMP
 rm $TMP/*
 cp $CORPUS_REPO/$CORPUS/* $TMP
@@ -24,9 +25,9 @@ if [ $CORPUS == 'engineered' ]; then
   rm $TMP/ia64-unwind
 fi
 
-docker run --rm -w /work --cpus 2 -it -v "$RUN_DIR/..":/work -v "$TMP":/corpus my/qsym sh -c "FUZZER=$FUZZER CORPUS=$CORPUS /work/script/campaign-qsym.sh"
+docker run --rm -w /work --cpus 2 -it -v "$RUN_DIR/..":/work -v "$TMP":/corpus my/qsym sh -c "FUZZER=$FUZZER CORPUS=$CORPUS TSTAMP=$TSTAMP /work/script/campaign-qsym.sh"
 
 rm $TMP/*
 rmdir $TMP
 
-FUZZER=$FUZZER CORPUS=$CORPUS $RUN_DIR/collect-asan.sh
+TSTAMP=$TSTAMP FUZZER=$FUZZER CORPUS=$CORPUS $RUN_DIR/collect-asan.sh

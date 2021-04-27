@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export CORES=2
-export OUTPUT=/work/output/$FUZZER-asan/$CORPUS/
+export OUTPUT=/work/output/$FUZZER-asan/$CORPUS-$TSTAMP/
 export WHATSUP=/afl/afl-whatsup
 
 INPUT="/corpus"
