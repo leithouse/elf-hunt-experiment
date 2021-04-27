@@ -17,11 +17,11 @@ Designed for use with the corpi here: https://github.com/leithouse/elf-corpi
   - Expects env variables CORPUS, FUZZER, CORES and WHATSUP
 
 *campaign-X.sh*
-  - Executes a fuzzing campaign. Intended to be run in docker
-  - Expects env variables CORPUS\_REPO and CORPUS
+  - Executes a fuzzing campaign. Intended to be run within docker instances launched by _run-X_ scripts
 
 *run-X.sh*
   - Executes fuzzing campaign in a docker, then collects results
+  - Expects env variables CORPUS\_REPO and CORPUS
 
 *collect-asan.sh*
   - Use collector script inside docker
@@ -32,7 +32,7 @@ Designed for use with the corpi here: https://github.com/leithouse/elf-corpi
 
 Docker container names are hardcoded in and expected to be _my/afl_,_my/mopt_ and _my/qsym_.
 
-Docker containers are just additions of nodeJS to zjuchenyuan's Unifuzz images
+Docker containers are just additions of nodeJS to zjuchenyuan's Unifuzz images (https://github.com/unifuzz/dockerized_fuzzing)
 
 The AFL container also adds gdb, exploitable and afl-utils
 

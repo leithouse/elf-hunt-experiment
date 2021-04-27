@@ -3,6 +3,7 @@
 export CORES=2
 export OUTPUT=/work/output/$FUZZER-asan/$CORPUS-$TSTAMP/
 export WHATSUP=/afl/afl-whatsup
+export AFL_NO_AFFINITY=1
 
 INPUT="/corpus"
 READELF="/work/bin/readelf-2.28"
