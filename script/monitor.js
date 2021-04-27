@@ -64,11 +64,10 @@ const statLog = async () => {
     sums.unique_hangs += parseInt(stats.unique_hangs)
   });
   let avg = {};
-  let div = (FUZZER=='qsym')?((CORES-1)/2):CORES; // QSym not included
   for(let prop in sums) {
     let val = sums[prop];
     if(/!unique/.test(prop)) {
-      val = sums[prop]/div;
+      val = sums[prop]/CORES;
       if(prop != 'bitmap')
         val = Math.floor(val);
     }
