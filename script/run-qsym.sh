@@ -24,7 +24,7 @@ if [ $CORPUS == 'engineered' ]; then
   rm $TMP/ia64-unwind
 fi
 
-docker run --rm -w /work -it -v "$RUN_DIR/..":/work -v "$TMP":/corpus my/qsym sh -c "FUZZER=$FUZZER CORPUS=$CORPUS /work/script/campaign-qsym.sh"
+docker run --rm -w /work --cpu-quota 2 -it -v "$RUN_DIR/..":/work -v "$TMP":/corpus my/qsym sh -c "FUZZER=$FUZZER CORPUS=$CORPUS /work/script/campaign-qsym.sh"
 
 rm $TMP/*
 rmdir $TMP

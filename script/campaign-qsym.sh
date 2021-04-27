@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export CORES=3
+export CORES=2
 export OUTPUT=/work/output/$FUZZER-asan/$CORPUS/
 export WHATSUP=/afl/afl-whatsup
 
