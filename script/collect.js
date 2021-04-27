@@ -15,7 +15,9 @@ if(!FUZZER || !CORPUS) {
   process.exit(1);
 }
 
-const PATH_TAIL = path.join(FUZZER+(USE_ASAN?'-asan':''),CORPUS)
+const tstamp = (new Date()).toLocaleString();
+
+const PATH_TAIL = path.join(FUZZER+(USE_ASAN?'-asan':''),CORPUS+'-'+tstamp)
          OUTPUT = path.resolve(__dirname,'..','output',PATH_TAIL),
        ANALYSIS = path.resolve(__dirname,'..','analysis',PATH_TAIL),
         CRASHES = path.join(ANALYSIS,'crashes'),
@@ -210,6 +212,7 @@ const main = async () => {
   writeHr();
   await fsp.writeFile(REPORT,report);
   console.log('\nReport written to', REPORT,'\n');
+  await cleanDir(SORTED);
 }
 
 main()
