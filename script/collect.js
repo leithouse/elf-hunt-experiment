@@ -212,7 +212,7 @@ const main = async () => {
   writeHr();
   await fsp.writeFile(REPORT,report);
   console.log('\nReport written to', REPORT,'\n');
-  await cleanDir(path.join(SORTED,'sorted'));
+  await cleanDir(path.join(SORTED,'sorted','crashes'));
 }
 
 main()
