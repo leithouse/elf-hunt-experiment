@@ -25,7 +25,7 @@ if [ $CORPUS == 'engineered' ]; then
   rm $TMP/nds32-attributes
 fi
 
-docker run --cpus 8 --rm -w /work -it -v "$RUN_DIR/..":/work -v "$TMP":/corpus my/qsym sh -c "FUZZER=$FUZZER CORPUS=$CORPUS TSTAMP=$TSTAMP USE_ASAN=1 /work/script/campaign-afl.sh"
+docker run --cpus 9 --rm -w /work -it -v "$RUN_DIR/..":/work -v "$TMP":/corpus my/qsym sh -c "FUZZER=$FUZZER CORPUS=$CORPUS TSTAMP=$TSTAMP USE_ASAN=1 /work/script/campaign-afl.sh"
 
 rm $TMP/*
 rmdir $TMP

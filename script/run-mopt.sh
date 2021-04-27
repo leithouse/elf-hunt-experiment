@@ -26,7 +26,7 @@ if [ $CORPUS == 'engineered' ]; then
   rm $TMP/nds32-attributes
 fi
 
-docker run --cpus 8 --rm -w /work -it -v "$RUN_DIR/..":/work -v "$TMP":/corpus my/mopt sh -c "FUZZER=$FUZZER CORPUS=$CORPUS USE_ASAN=1 TSTAMP=$TSTAMP /work/script/campaign-mopt.sh"
+docker run --cpus 9 --rm -w /work -it -v "$RUN_DIR/..":/work -v "$TMP":/corpus my/mopt sh -c "FUZZER=$FUZZER CORPUS=$CORPUS USE_ASAN=1 TSTAMP=$TSTAMP /work/script/campaign-mopt.sh"
 
 rm $TMP/*
 rmdir $TMP
