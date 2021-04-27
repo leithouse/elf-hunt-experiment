@@ -5,7 +5,7 @@ if [ $USE_ASAN ]; then
 fi
 
 export CORES=8
-export OUTPUT=/work/output/$FUZZER/$CORPUS
+export OUTPUT=/work/output/$FUZZER/$CORPUS-$TSTAMP
 export WHATSUP=/afl/afl-whatsup
 
 INPUT=/corpus
