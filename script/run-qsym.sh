@@ -20,7 +20,7 @@ if [ $? -ne 0 ]; then
 fi
 if [ $CORPUS == 'engineered' ]; then
   rm $TMP/mach-flags.a
-  rm $TMP/nd32-attributes
+  rm $TMP/nds32-attributes
   rm $TMP/ia64-unwind
 fi
 
