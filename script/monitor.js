@@ -1,11 +1,13 @@
 #!/usr/bin/node
 
+const HOURS = process.env.HOURS || 4;
+
 const {CORES,OUTPUT,FUZZER,WHATSUP} = process.env;
 if(!CORES || !OUTPUT || !WHATSUP) {
   console.error("Must have CORES, OUTPUT and WHATSUP defined");
   process.exit(1);
 }
-const TOTAL_TIME = 4 * 60 * 60000, // 4 hours
+const TOTAL_TIME = HOURS * 60 * 60000, // 4 hours
         CHK_MINS = 5, // 5 minutes
         CHK_TIME = CHK_MINS * 60000, 
        CHK_INTVL = CHK_TIME / CORES;
@@ -76,28 +78,17 @@ const statLog = async () => {
   return avg;
 }
 
-let loopCnt = 0;
-let intvl = setInterval(()=>{
-  statLog().then((avg)=>{
-    console.log();
-    console.log('Averages: ',avg);
-    console.log();
-  });
-  loopCnt++;
-  if(loopCnt*CHK_TIME >= TOTAL_TIME) {
-    clearInterval(intvl);
-    console.log('12 hours complete');
-    rl.close();
-    let ret = execSync(`${WHATSUP} ${OUTPUT}`);
-    console.log(ret.toString());
-  }
-},CHK_INTVL);
-statLog().then(console.log);
+let to = setTimeout(()=>{
+  console.log('12 hours complete');
+  rl.close();
+  let ret = execSync(`${WHATSUP} ${OUTPUT}`);
+  console.log(ret.toString());
+},TOTAL_TIME/CORES);
 
 let ask = () => {
   rl.question('Type q[uit] to quit. Anything else for afl-whatsup: ',(answer)=>{
     if(/^q/.test(answer)) {
-      clearInterval(intvl);
+      clearTimeout(to);
       rl.close();
       return;
     }

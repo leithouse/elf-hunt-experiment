@@ -2,8 +2,7 @@ FROM zjuchenyuan/afl
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update
-RUN apt-get install -y nodejs sqlite3 gdb
-
+RUN apt-get install -y nodejs gdb lcov
 
 RUN mkdir /git-repos && cd /git-repos &&\
   git clone https://gitlab.com/rc0r/exploitable &&\
@@ -19,4 +18,18 @@ RUN cd /git-repos &&\
   pip3 install simplejson &&\
   pip3 install .
 
+RUN cd /git-repos &&\
+  git clone https://sourceware.org/git/binutils-gdb.git &&\
+  cd binutils-gdb &&\
+  git checkout binutils-2_36-branch
 
+RUN cd /git-repos &&\
+  git clone https://github.com/mrash/afl-cov.git &&\
+  cd /usr/local/bin &&\
+  ln -s /git-repos/afl-cov/afl-cov
+
+# make binutils has errors, but it builds enough for readelf
+RUN mkdir /binutils-gcov &&\
+  cd /binutils-gcov &&\
+  LIBS=-lgcov CFLAGS='-fprofile-arcs -ftest-coverage' CC=gcc CXX=g++ /git-repos/binutils-gdb/configure &&\
+  make -i -j 4
